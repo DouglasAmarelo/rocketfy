@@ -10,14 +10,8 @@ const Card = ({ data, index, listIndex }) => {
   const { move } = useContext(BoardContext);
 
   const [{ isDragging }, dragRef] = useDrag({
-    item: {
-      type: 'CARD',
-      index,
-      listIndex,
-    },
-    collect: monitor => ({
-      isDragging: monitor.isDragging(),
-    }),
+    item: { type: 'CARD', index, listIndex },
+    collect: monitor => ({ isDragging: monitor.isDragging() }),
   });
 
   const [, dropRef] = useDrop({
@@ -28,12 +22,8 @@ const Card = ({ data, index, listIndex }) => {
       const draggedIndex = item.index;
       const targetIndex = index;
 
-      if (
-        draggedIndex === targetIndex &&
-        draggedListIndex === targetListIndex
-      ) {
+      if (draggedIndex === targetIndex && draggedListIndex === targetListIndex)
         return;
-      }
 
       const targetSize = ref.current.getBoundingClientRect();
       const targetCenter = (targetSize.bottom - targetSize.top) / 2;
